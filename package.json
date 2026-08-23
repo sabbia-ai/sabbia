@@ -1,0 +1,14 @@
+{
+  "name": "@sabbia/framework",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts",
+    "typecheck": "bun run scripts/typecheck.ts",
+    "smoke": "bash scripts/smoke.sh"
+  },
+  "engines": { "bun": ">=1.2.0" }
+}
