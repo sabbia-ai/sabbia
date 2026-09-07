@@ -67,7 +67,7 @@ export async function retrieve(query: string, corpusId = corpora.defaultId(), k 
   const denseBegan = performance.now(), dense = await denseCandidates(query, corpusId), denseElapsed = performance.now() - denseBegan;
   const fused = new Map<string, { row: RetrievalRow; score: number; lexicalScore: number }>();
   // Lexical lists each weigh 1; auxiliary dense ranks weigh only 0.25.
-  for (const [channel, list] of [first, second, dense].entries()) list.forEach((row, i) => { const entry = fused.get(row.id) ?? { row, score: 0, lexicalScore: 0 }; entry.score += (channel === 2 ? 0.25 : 1) / (60 + i); if (channel < 2) entry.lexicalScore += 1 / (60 + i); fused.set(row.id, entry); });
+  for (const [channel, list] of [first, second, dense].entries()) list.forEach((row, i) => { const entry = fused.get(row.id) ?? { row, score: 0, lexicalScore: 0 }; entry.score += (channel === 2 ? 0.25 : 1) / (60 + i + 1); if (channel < 2) entry.lexicalScore += 1 / (60 + i + 1); fused.set(row.id, entry); });
   const exactQuery = query.trim().toLowerCase();
   const ranked = [...fused.values()].filter(entry => entry.lexicalScore > 0).map(({ row, lexicalScore: score }) => {
     const text = searchable(row), coverage = Math.min(1, terms.filter(t => text.includes(t)).length / Math.min(terms.length, 5));
