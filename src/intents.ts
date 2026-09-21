@@ -9,7 +9,7 @@ function normalize(text: string): string {
     .replace(/(.)\1+/gu, "$1");
 }
 const phrases = (text: string) => new Set(text.split("|").map(normalize));
-const acknowledgement = phrases("ok|okay|k|yes|yeah|yep|no|nope|sure|cool|nice|great|fine|lol|hmm|umm|got it|understood|alright|right");
+const acknowledgement = phrases("ok|okay|k|yes|yeah|yep|no|nope|sure|cool|nice|great|fine|lol|hmm|umm|got it|understood|alright|right|noted");
 const gratitude = phrases("thanks|thx|thank you|ty|3q");
 const greeting = phrases("hello|hi|hey|hi there|hello there|good morning|good afternoon|good evening|howdy");
 const farewell = phrases("bye|goodbye|see you|see ya|later");
