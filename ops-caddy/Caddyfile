@@ -1,0 +1,25 @@
+# Sabbia AI edge proxy — production
+# Runs as the `sabbia-edge` container (caddy:2-alpine, host network) in front of the Bun process
+# listening on 127.0.0.1:3000. TLS certificates are obtained and renewed automatically.
+#
+#   docker run -d --name sabbia-edge --network host --restart unless-stopped \
+#     -v "$PWD/ops-caddy/Caddyfile:/etc/caddy/Caddyfile:ro" \
+#     -v sabbia-caddy-data:/data -v sabbia-caddy-config:/config caddy:2-alpine
+
+sabbiadma.com, www.sabbiadma.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Forwarded-Proto https
+		header_up X-Real-IP {remote_host}
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+	log {
+		output stdout
+		format json
+	}
+}
