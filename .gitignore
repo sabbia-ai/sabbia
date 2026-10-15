@@ -2,3 +2,4 @@ data/
 .env
 *.log
 node_modules/
+verification-output.txt
