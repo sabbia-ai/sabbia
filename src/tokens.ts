@@ -1,7 +1,7 @@
 const cjkRun = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]+/gu;
 // Function words carry no retrieval signal and would otherwise let an unrelated
 // question clear the score threshold on "is"/"the" alone.
-const stopwords = new Set("a an the is are was were be been being of for to in on at and or it this that these with by from as do does did".split(" "));
+const stopwords = new Set("a an the is are was were be been being of for to in on at and or it its this that these those with by from as do does did".split(" "));
 export function queryTokens(query: string): { terms: string[]; bigrams: string[] } {
   const terms = new Set<string>(), bigrams = new Set<string>();
   // Separate scripts first, including adjacent text such as Refund2026.
